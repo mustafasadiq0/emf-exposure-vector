@@ -1,0 +1,14 @@
+*.keystore
+*.jks
+keystore.properties
+local.properties
+build/
+build-aab/
+build-dex/
+.gradle/
+.idea/
+*.iml
+*.apk
+*.aab
+*.idsig
+release/

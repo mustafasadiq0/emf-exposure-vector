@@ -1,0 +1,52 @@
+plugins {
+    id 'com.android.application' version '8.11.1'
+}
+
+android {
+    namespace 'org.emfvector.app'
+    compileSdk 36
+
+    defaultConfig {
+        applicationId 'org.emfvector.app'
+        minSdk 23
+        targetSdk 36
+        versionCode 3          // increase by 1 for every Play upload
+        versionName '1.2'
+    }
+
+    // Reuse the existing folder layout (no app/ module folder).
+    sourceSets {
+        main {
+            manifest.srcFile 'gradle-manifest/AndroidManifest.xml'
+            java.srcDirs = ['src']
+            res.srcDirs = ['res']
+        }
+    }
+
+    signingConfigs {
+        release {
+            // Keystore is NOT in the repository. Put these in ~/.gradle/gradle.properties:
+            // EMF_KEYSTORE=/path/release.keystore  EMF_STORE_PASSWORD=...  EMF_KEY_ALIAS=emf  EMF_KEY_PASSWORD=...
+            if (project.hasProperty('EMF_KEYSTORE')) {
+                storeFile file(EMF_KEYSTORE)
+                storePassword EMF_STORE_PASSWORD
+                keyAlias EMF_KEY_ALIAS
+                keyPassword EMF_KEY_PASSWORD
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.release
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lint { abortOnError false }
+}
